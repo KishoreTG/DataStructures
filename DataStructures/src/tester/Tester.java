@@ -4,6 +4,7 @@ import tools.DoublyLinkedList;
 
 public class Tester {
 
+	
 	public static void main(String[] args) {
 
 		DoublyLinkedList a = new DoublyLinkedList();
@@ -18,11 +19,20 @@ public class Tester {
 		a.addFirst(8);
 		
 		System.out.println(a);
-		System.out.println(a.indexOf(7));
-		System.out.println(a.indexOf(6));
-		System.out.println(a.indexOf(8));
+		
+		a.insertAt(-1, 15);
+		a.insertAt(-1, 25);
+		
+		System.out.println(a);
+		
+		a.clear();
+		a.insertAt(0, 7);
+		
+		System.out.println(a);
 		
 		
 	}
 	
+	
 }
+

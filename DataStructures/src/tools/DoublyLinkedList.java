@@ -46,6 +46,13 @@ public class DoublyLinkedList {
 	}
 	
 	
+	public void clear() {
+		this.head = null;
+		this.tail = null;
+		this.numOfElems = 0;
+	}
+	
+	
 	private void addCornerCase(int value) {
 		Node nodeToAdd = new Node(value);
 		head = nodeToAdd;
@@ -118,16 +125,63 @@ public class DoublyLinkedList {
 	
 	
 	public void insertAt(int index, int value) {
+		if (index == -1) {
+			index = numOfElems;
+		}
+		if (index < 0 || index > numOfElems) {
+			return;
+		}
 		if (numOfElems == 0) {
 			addCornerCase(value);
+		}
+		else {
+			if (index == 0) {
+				addFirst(value);
+			} else if (index == numOfElems) {
+				addLast(value);
+			} else {
+				int runningIndex = 0;
+				Node current = head;
+				while (current != null && runningIndex < index) {
+					current = current.next;
+					runningIndex += 1;
+				}
+				Node nodeToInsert = new Node(value);
+				nodeToInsert.next = current;
+				nodeToInsert.prev = current.prev;
+				nodeToInsert.prev.next = nodeToInsert;
+				nodeToInsert.next.prev = nodeToInsert;
+			}
 		}
 		numOfElems += 1;
 	}
 	
 	
 	public void removeAt(int index) {
+		if (index == -1) {
+			index = numOfElems - 1;
+		}
+		if (index < 0 || index >= numOfElems) {
+			return;
+		}
 		if (numOfElems == 1) {
 			removeCornerCase();
+		}
+		else {
+			if (index == 0) {
+				removeFirst();
+			} else if (index == numOfElems - 1) {
+				removeLast();
+			} else {
+				int runningIndex = 0;
+				Node current = head;
+				while (current != null && runningIndex < index) {
+					current = current.next;
+					runningIndex += 1;
+				}
+				current.prev.next = current.next;
+				current.next.prev = current.prev;
+			}
 		}
 		numOfElems -= 1;
 	}
@@ -180,4 +234,6 @@ public class DoublyLinkedList {
 		return res.toString();
 	}
 	
+	
 }
+
