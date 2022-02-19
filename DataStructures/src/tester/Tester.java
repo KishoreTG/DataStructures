@@ -1,35 +1,44 @@
 package tester;
 
 import tools.DoublyLinkedList;
+import tools.LRUCache;
 
 public class Tester {
 
 	
 	public static void main(String[] args) {
 
-		DoublyLinkedList a = new DoublyLinkedList();
+		LRUCache lru = new LRUCache();
 		
-		System.out.println(a);
+		lru.put(3, 2);
 		
-		a.addLast(9);
-		a.addFirst(5);
-		a.addLast(3);
-		a.addFirst(3);
-		a.addLast(7);
-		a.addFirst(8);
+		System.out.println(lru);
 		
-		System.out.println(a);
+		lru.put(4, 6);
 		
-		a.insertAt(-1, 15);
-		a.insertAt(-1, 25);
+		System.out.println(lru);
 		
-		System.out.println(a);
+		lru.put(3, 4);
 		
-		a.clear();
-		a.insertAt(0, 7);
+		System.out.println(lru);
 		
-		System.out.println(a);
+		lru.put(7, 8);
 		
+		lru.put(9, 3);
+		
+		System.out.println(lru);
+		
+		System.out.println(lru.get(4));
+		
+		System.out.println(lru);
+		
+		lru.put(5, 5);
+		
+		System.out.println(lru);
+		
+		lru.put(13, 14);
+		
+		System.out.println(lru);
 		
 	}
 	

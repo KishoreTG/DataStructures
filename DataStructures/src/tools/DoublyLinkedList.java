@@ -21,6 +21,10 @@ public class DoublyLinkedList {
 			this.prev = prev;
 		}
 		
+		public String toString() {
+			return String.valueOf(value);
+		}
+		
 	}
 	
 	
@@ -53,10 +57,18 @@ public class DoublyLinkedList {
 	}
 	
 	
-	private void addCornerCase(int value) {
+	private Node addCornerCase(int value) {
 		Node nodeToAdd = new Node(value);
 		head = nodeToAdd;
 		tail = nodeToAdd;
+		return nodeToAdd;
+	}
+	
+	
+	private Node addCornerCase(Node nodeToAdd) {
+		head = nodeToAdd;
+		tail = nodeToAdd;
+		return nodeToAdd;
 	}
 	
 	
@@ -66,31 +78,49 @@ public class DoublyLinkedList {
 	}
 	
 	
-	public void addFirst(int value) {
+	public Node addFirst(int value) {
+		Node nodeToAdd;
 		if (numOfElems == 0) {
-			addCornerCase(value);
+			nodeToAdd = addCornerCase(value);
 		}
 		else {
-			Node nodeToAdd = new Node(value);
+			nodeToAdd = new Node(value);
 			nodeToAdd.next = head;
 			head.prev = nodeToAdd;
 			head = nodeToAdd;
 		}
 		numOfElems += 1;
+		return nodeToAdd;
 	}
 	
 	
-	public void addLast(int value) {
+	public Node addFirst(Node nodeToAdd) {
 		if (numOfElems == 0) {
-			addCornerCase(value);
+			nodeToAdd = addCornerCase(nodeToAdd);
 		}
 		else {
-			Node nodeToAdd = new Node(value);
+			nodeToAdd.next = head;
+			head.prev = nodeToAdd;
+			head = nodeToAdd;
+		}
+		numOfElems += 1;
+		return nodeToAdd;
+	}
+	
+	
+	public Node addLast(int value) {
+		Node nodeToAdd;
+		if (numOfElems == 0) {
+			nodeToAdd = addCornerCase(value);
+		}
+		else {
+			nodeToAdd = new Node(value);
 			nodeToAdd.prev = tail;
 			tail.next = nodeToAdd;
 			tail = nodeToAdd;
 		}
 		numOfElems += 1;
+		return nodeToAdd;
 	}
 	
 	
@@ -124,21 +154,22 @@ public class DoublyLinkedList {
 	}
 	
 	
-	public void insertAt(int index, int value) {
+	public Node insertAt(int index, int value) {
+		Node nodeToInsert;
 		if (index == -1) {
 			index = numOfElems;
 		}
 		if (index < 0 || index > numOfElems) {
-			return;
+			return null;
 		}
 		if (numOfElems == 0) {
-			addCornerCase(value);
+			nodeToInsert = addCornerCase(value);
 		}
 		else {
 			if (index == 0) {
-				addFirst(value);
+				nodeToInsert = addFirst(value);
 			} else if (index == numOfElems) {
-				addLast(value);
+				nodeToInsert = addLast(value);
 			} else {
 				int runningIndex = 0;
 				Node current = head;
@@ -146,7 +177,7 @@ public class DoublyLinkedList {
 					current = current.next;
 					runningIndex += 1;
 				}
-				Node nodeToInsert = new Node(value);
+				nodeToInsert = new Node(value);
 				nodeToInsert.next = current;
 				nodeToInsert.prev = current.prev;
 				nodeToInsert.prev.next = nodeToInsert;
@@ -154,6 +185,7 @@ public class DoublyLinkedList {
 			}
 		}
 		numOfElems += 1;
+		return nodeToInsert;
 	}
 	
 	
@@ -184,6 +216,20 @@ public class DoublyLinkedList {
 			}
 		}
 		numOfElems -= 1;
+	}
+	
+	
+	public void remove(Node node) {
+		if (node.prev == null) {
+			head = node.next;
+		} else {
+			node.prev.next = node.next;
+		}
+		if (node.next == null) {
+			tail = node.prev;
+		} else {
+			node.next.prev = node.prev;
+		}
 	}
 	
 	
